@@ -1,247 +1,477 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Happy Teacher's Day</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supporting Documents Management</title>
     <style>
-        body {
-            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #a8edea 100%);
-            font-family: 'Arial', sans-serif;
-            color: #333;
-            min-height: 100vh;
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
-        .hero {
-            text-align: center;
-            padding: 100px 20px 80px; /* increased top padding to avoid overlap */
-            color: white;
-            position: relative;
-            overflow: visible; /* allow images to float without clipping */
-            z-index: 1;
-            max-width: 900px;
-            margin: 0 auto;
-        }
-        .hero h1 {
-            font-size: 4em;
-            margin-bottom: 20px;
-            font-weight: bolder;
+
+        body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(45deg, #ff6b6b, #ffeaa7, #74b9ff, #a29bfe);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-shadow: 2px 2px 6px rgba(0,0,0,0.3);
-            position: relative;
-            margin-left: auto;
-            margin-right: auto;
-            display: inline-block;
+            background: #f5f5f5;
         }
-        .hero p {
-            font-size: 1.5em;
-            margin-bottom: 30px;
-            background: linear-gradient(45deg, #55efc4, #00b894); /* changed to greenish gradient */
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-weight: bold;
-            position: relative;
-            margin-left: auto;
-            margin-right: auto;
-            display: inline-block;
-        }
-        .hero-images {
-            position: relative; /* changed from absolute to relative to prevent overlap */
-            margin-top: 40px;
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            opacity: 0.8;
-            z-index: 0;
-        }
-        .hero img {
-            width: 140px;
-            height: 140px;
-            border-radius: 50%;
-            animation: float 3s ease-in-out infinite;
-            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
-        }
-        .hero img:nth-child(2) { animation-delay: 1s; }
-        .hero img:nth-child(3) { animation-delay: 2s; }
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-        }
-        .tab-container {
-            max-width: 1200px;
+
+        .container {
+            max-width: 1400px;
             margin: 0 auto;
             padding: 20px;
-            position: relative;
-            z-index: 4;
         }
-        .tabs {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
             margin-bottom: 20px;
+            text-align: center;
         }
-        .tab-button {
-            background: linear-gradient(45deg, #ffecd2 0%, #fcb69f 100%);
-            color: #333;
-            border: 2px solid rgba(255, 255, 255, 0.5);
-            border-radius: 25px;
-            padding: 12px 24px;
-            margin: 5px;
+
+        .tabs-container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .main-tabs {
+            display: flex;
+            background: #f8f9fa;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .main-tab {
+            flex: 1;
+            padding: 15px 20px;
+            text-align: center;
             cursor: pointer;
             transition: all 0.3s ease;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border: none;
+            background: transparent;
+            font-size: 16px;
+            font-weight: 500;
         }
-        .tab-button.active, .tab-button:hover {
-            background: linear-gradient(45deg, #fcb69f 0%, #ffecd2 100%);
-            color: #fff;
-            border-color: #fcb69f;
-            transform: scale(1.05);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-        }
-        .tab-content {
-            display: none;
+
+        .main-tab.active {
             background: white;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            line-height: 1.6;
+            color: #667eea;
+            border-bottom: 3px solid #667eea;
         }
-        .tab-content.active {
+
+        .sub-tabs-container {
+            display: none;
+            padding: 20px;
+        }
+
+        .sub-tabs-container.active {
             display: block;
         }
-        .footer-button {
-            text-align: center;
-            padding: 20px 0;
-            background: rgba(255, 255, 255, 0.9);
-            margin-top: 20px;
+
+        .sub-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
         }
-        .footer-button button {
-            background: linear-gradient(45deg, #28a745, #20c997);
-            color: white;
+
+        .sub-tab {
+            padding: 10px 20px;
+            background: #e9ecef;
             border: none;
-            padding: 15px 30px;
             border-radius: 25px;
             cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            transition: transform 0.3s;
+            transition: all 0.3s ease;
+            font-size: 14px;
         }
-        .footer-button button:hover {
-            transform: scale(1.1);
+
+        .sub-tab.active {
+            background: #667eea;
+            color: white;
         }
-        img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 10px;
+
+        .filters {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            align-items: center;
         }
-        .image-gallery {
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .filter-group label {
+            font-size: 14px;
+            font-weight: 500;
+            color: #495057;
+        }
+
+        .filter-group select,
+        .filter-group input {
+            padding: 8px 12px;
+            border: 2px solid #e9ecef;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .filter-group input:focus,
+        .filter-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5a67d8;
+        }
+
+        .content-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 20px;
         }
-        .story {
-            margin-bottom: 30px;
+
+        .document-card {
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .document-card:hover {
+            border-color: #667eea;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.15);
+        }
+
+        .flat-info {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .flat-number {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .structure-info {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .file-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .upload-btn {
+            flex: 1;
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .upload-btn:hover {
+            background: #218838;
+        }
+
+        .download-btn {
+            flex: 1;
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .download-btn:hover {
+            background: #0056b3;
+        }
+
+        .no-documents {
+            text-align: center;
+            padding: 40px;
+            color: #6c757d;
+            font-size: 18px;
+        }
+
+        @media (max-width: 768px) {
+            .filters {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .filter-group {
+                width: 100%;
+            }
+            
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="hero">
-        <h1>Happy Teacher's Day!</h1>
-        <p>Celebrating the dedication and impact of educators worldwide</p>
-        <div class="hero-images">
-            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/c7a2d091-242d-4e8d-9484-6731bf1bba20.png" alt="A smiling teacher standing in front of a chalkboard with students raising hands eagerly in a bright, colorful classroom setting with books and globes around" />
-            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/5d6f474e-1797-44cc-878b-37877efb2aa9.png" alt="An open book with graduation cap, apple, and chalk on it, symbolizing education and learning in a festive Teachers' Day theme" />
-            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/969daf70-a6d1-4637-98cd-13f1ce30c645.png" alt="Group of diverse students and teachers in a circle holding hands, representing unity and gratitude on Teachers' Day" />
-        </div>
-    </div>
-
-    <div class="tab-container">
-        <div class="tabs">
-            <button class="tab-button active" onclick="showTab('about')">About</button>
-            <button class="tab-button" onclick="showTab('importance')">Importance</button>
-            <button class="tab-button" onclick="showTab('why-celebrate')">Why Celebrate</button>
-            <button class="tab-button" onclick="showTab('how-celebrate')">How to Celebrate</button>
-            <button class="tab-button" onclick="showTab('inspiration')">Inspiration</button>
-            <button class="tab-button" onclick="showTab('stories')">Motivational Stories</button>
-            <button class="tab-button" onclick="showTab('images')">Images</button>
+    <div class="container">
+        <div class="header">
+            <h1>🏢 Supporting Documents Management</h1>
+            <p>Manage your building documents floor-wise and flat-wise</p>
         </div>
 
-        <div id="about" class="tab-content active">
-            <h2>About Teacher's Day</h2>
-            <p>Teacher's Day is a special observance dedicated to recognizing the profound impact of educators on society. Originating from ancient civilizations where scholars were revered, it has evolved into a global tradition. In India, celebrated on September 5, it honors Dr. Sarvepalli Radhakrishnan, a respected president and philosopher who advocated for knowledge. The day began in 1962 when students sought to celebrate his birthday, but he redirected it to honor teachers. Internationally, UNESCO marks October 5 as World Teachers' Day to address education challenges. This celebration highlights teachers' roles in fostering critical thinking, innovation, and ethical values. Educators adapt to technological advancements, ensuring students thrive in a dynamic world. Teacher's Day encourages reflection on education's importance and the need for resources to support teachers. From preschool to higher education, teachers inspire lifelong learning. It's a reminder of their sacrifices and dedication in shaping informed citizens.</p>
-        </div>
-
-        <div id="importance" class="tab-content">
-            <h2>Importance of Teacher's Day</h2>
-            <p>The significance of Teacher's Day lies in acknowledging educators as cornerstones of societal progress. Beyond academic instruction, teachers instill discipline, empathy, and problem-solving skills essential for personal and professional growth. In a rapidly changing world, they provide guidance and mentorship, helping students navigate uncertainties. Celebrating this day cultivates respect and motivates aspiring educators to join the profession. It also brings attention to issues like teacher shortages, inadequate compensation, and professional development needs. Society benefits from strong education systems, leading to economic stability, innovation, and social cohesion. Teacher's Day inspires investment in education infrastructure and technology integration. Parents and communities are encouraged to support teachers through involvement in school activities. During crises, teachers demonstrate resilience by adapting teaching methods online. Ultimately, this day reinforces teachers' value, ensuring future generations are equipped for success and fostering a culture of appreciation.</p>
-        </div>
-
-        <div id="why-celebrate" class="tab-content">
-            <h2>Why Celebrate Teacher's Day</h2>
-            <p>Teacher's Day is celebrated to honor the often-overlooked dedication of educators who work tirelessly to nurture minds. Their efforts in creating knowledge-driven societies deserve recognition. The day builds community by uniting students, parents, and administrators in appreciation. It strengthens teacher-student relationships, enhancing trust and cooperation. Celebrations foster positive school environments, boosting academic performance and emotional well-being. Beyond thanks, it serves as a forum for discussing educational advancements and inclusive policies. Motivating teachers through events improves morale and reduces burnout. In diverse cultures, it promotes shared values and mutual respect. Teacher's Day highlights the transformative power of education in overcoming challenges. It inspires lifelong commitment to learning and societal contributions. By celebrating, we affirm educators' roles in inspiring innovation and ethical leadership. Ultimately, it's a tribute to the heroes shaping brighter futures.</p>
-        </div>
-
-        <div id="how-celebrate" class="tab-content">
-            <h2>How to Celebrate Teacher's Day</h2>
-            <p>Celebrating Teacher's Day involves heartfelt gestures that express gratitude. Students can write notes highlighting impacts or create artwork as gifts. Organizing school assemblies with speeches and performances adds meaningfulness. Gifts like flowers, books, or personalized items show appreciation. Communities host workshops or seminars on educational topics. Online platforms enable virtual cards and social media shoutouts. Teachers reflect on careers through journaling or sharing stories. Parental involvement includes volunteer work or fundraising for school resources. International practices feature parades or public recognitions. Simple actions like a thank-you note can profoundly impact morale. Emphasizing sincerity ensures celebrations reinforce positive relationships. Whether individual or group, approaches foster lasting bonds. It encourages ongoing support for educators' well-being. Ultimately, celebrations motivate continued dedication to teaching excellence.</p>
-        </div>
-
-        <div id="inspiration" class="tab-content">
-            <h2>Inspiration from Teacher's Day</h2>
-            <p>Teacher's Day inspires by celebrating transformative figures like Dr. Radhakrishnan, whose wisdom guides educators. His emphasis on education as enlightenment motivates teaching as a noble vocation. Stories of dedicated teachers who changed lives highlight resilience and creativity. It inspires students to pursue teaching amidst shortages. The day showcases qualities like patience, adaptability, and passion essential for educators. Creative tributes, such as poems or art, deepen inspiration. It encourages embracing mentorship beyond classrooms. Teacher's Day prompts reflection on personal growth through learning. It fosters innovation in remote and inclusive education. Collective appreciation combats isolation, boosting teacher retention. Inspiration extends to valuing knowledge in everyday life. Ultimately, it visions an empowered world through educated citizens.</p>
-        </div>
-
-        <div id="stories" class="tab-content">
-            <h2>Motivational Stories</h2>
-            <div class="story">
-                <h3>Story 1: The Lifelong Mentor</h3>
-                <p>In a small village, Mr. Rajesh taught math to children with little resources. One boy, Anil, struggled endlessly. Mr. Rajesh stayed after school, using scraps for explanations. Anil passed his exams and pursued engineering. Years later, Anil returned as a successful engineer, crediting his teacher for believing in him. "You lit the path," Anil said. Mr. Rajesh smiled, knowing education's true power lies in guiding hearts, not just minds. His patience transformed a child's future.</p>
+        <div class="tabs-container">
+            <!-- Main Tabs -->
+            <div class="main-tabs">
+                <button class="main-tab active" onclick="showMainTab('supporting')">Supporting Documents</button>
+                <button class="main-tab" onclick="showMainTab('other')">Other Documents</button>
             </div>
-            <div class="story">
-                <h3>Story 2: Overcoming Odds</h3>
-                <p>Mrs. Priya taught in a slum school, facing funding cuts and overcrowding. Despite hardships, she organized free meals and materials. A girl, Riya, dreamed of becoming a doctor but doubted her potential. Mrs. Priya mentored her during evenings, building confidence. Riya excelled and entered medical school. She vowed to help others, inspired by her teacher's resilience. This story shows how dedication overcomes barriers, creating ripples of hope.</p>
+
+            <!-- Supporting Documents Sub-tabs -->
+            <div id="supporting" class="sub-tabs-container active">
+                <div class="sub-tabs">
+                    <button class="sub-tab active" onclick="showSubTab('MIR')">MIR</button>
+                    <button class="sub-tab" onclick="showSubTab('MTC')">MTC</button>
+                    <button class="sub-tab" onclick="showSubTab('TPL')">TPL</button>
+                    <button class="sub-tab" onclick="showSubTab('other')">Other</button>
+                </div>
+
+                <!-- Filters -->
+                <div class="filters">
+                    <div class="filter-group">
+                        <label>🔍 Find Out</label>
+                        <input type="text" id="searchInput" placeholder="Search flats..." onkeyup="filterDocuments()">
+                    </div>
+                    <div class="filter-group">
+                        <label>🏗️ Structure</label>
+                        <select id="structureFilter" onchange="filterDocuments()">
+                            <option value="">All Structures</option>
+                            <option value="Tower A">Tower A</option>
+                            <option value="Tower B">Tower B</option>
+                            <option value="Tower C">Tower C</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>📊 Floor</label>
+                        <select id="floorFilter" onchange="filterDocuments()">
+                            <option value="">All Floors</option>
+                            <option value="Ground">Ground</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                            <option value="13">13</option>
+                            <option value="14">14</option>
+                            <option value="15">15</option>
+                            <option value="16">16</option>
+                            <option value="17">17</option>
+                            <option value="18">18</option>
+                            <option value="19">19</option>
+                            <option value="20">20</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>🏠 Flat</label>
+                        <select id="flatFilter" onchange="filterDocuments()">
+                            <option value="">All Flats</option>
+                            <option value="101">101</option>
+                            <option value="102">102</option>
+                            <option value="103">103</option>
+                            <option value="104">104</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>📅 Date</label>
+                        <input type="date" id="dateFilter" onchange="filterDocuments()">
+                    </div>
+                    <button class="btn btn-primary" onclick="clearFilters()">Clear Filters</button>
+                </div>
+
+                <!-- Documents Grid -->
+                <div id="documentsGrid" class="content-grid">
+                    <!-- Documents will be populated by JavaScript -->
+                </div>
             </div>
-            <div class="story">
-                <h3>Story 3: Inspiring Innovation</h3>
-                <p>Dr. Kumar, a professor, noticed students disengaged in online classes. He created interactive videos and virtual labs, adapting to challenges. A student, Vikram, rediscovered passion for science through these tools. Vikram won a research award, crediting Dr. Kumar's creativity. The professor believed innovation is key to education. His story proves teachers' adaptability fuels success, turning obstacles into opportunities.</p>
+
+            <!-- Other Documents Tab -->
+            <div id="other" class="sub-tabs-container">
+                <div class="content-grid">
+                    <div class="document-card">
+                        <h3>Other Documents Section</h3>
+                        <p>Coming Soon...</p>
+                    </div>
+                </div>
             </div>
         </div>
-
-        <div id="images" class="tab-content">
-            <h2>Teacher's Day Images</h2>
-            <div class="image-gallery">
-                <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/a16da9e9-8657-4dae-9f19-cf525767b784.png" alt="A vibrant classroom scene with a teacher at the front, students engaged in learning activities, bright colors and chalkboards filled with mathematical equations and drawings" onerror="this.style.display='none';" />
-                <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/838ce43a-1405-402e-9b90-4681242721ab.png" alt="Colorful banners and decorations saying 'Happy Teachers' Day' in a school hallway with flowers, gifts, and smiling students and teachers interacting warmly" onerror="this.style.display='none';" />
-                <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/4e978023-7513-47d7-9ca5-4283ef5d24b5.png" alt="An inspirational portrait of Dr. Sarvepalli Radhakrishnan, the philosopher, with books around him, symbolizing wisdom and education in a serene, academic setting" onerror="this.style.display='none';" />
-                <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/8866f45a-7c6d-46a7-b149-72c61aa6a2a0.png" alt="Group of teachers in traditional attire receiving bouquets from students in a festive school assembly, with applause and joyful expressions" onerror="this.style.display='none';" />
-            </div>
-        </div>
-    </div>
-
-    <div class="footer-button">
-        <button onclick="alert('Page Created - Ashwin')">Page Created - Ashwin</button>
     </div>
 
     <script>
-        function showTab(tabId) {
-            const contents = document.querySelectorAll('.tab-content');
-            const buttons = document.querySelectorAll('.tab-button');
-            contents.forEach(content => content.classList.remove('active'));
-            buttons.forEach(button => button.classList.remove('active'));
-            document.getElementById(tabId).classList.add('active');
-            event.target.classList.add('active');
+        // Sample data for 20 floors x 4 flats = 80 flats
+        const sampleDocuments = [];
+        for (let floor = 0; floor <= 20; floor++) {
+            for (let flat = 1; flat <= 4; flat++) {
+                const flatNumber = floor === 0 ? `G0${flat}` : `${floor}0${flat}`;
+                sampleDocuments.push({
+                    id: `${floor}-${flat}`,
+                    structure: floor % 3 === 0 ? 'Tower A' : floor % 3 === 1 ? 'Tower B' : 'Tower C',
+                    floor: floor === 0 ? 'Ground' : floor.toString(),
+                    flat: flatNumber,
+                    documentType: 'MIR',
+                    uploadDate: new Date(Date.now() - Math.random() * 365 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+                    hasFile: Math.random() > 0.3 // 70% have files
+                });
+            }
         }
+
+        let currentDocuments = [...sampleDocuments];
+        let currentSubTab = 'MIR';
+
+        // Tab Management
+        function showMainTab(tabName) {
+            document.querySelectorAll('.main-tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.sub-tabs-container').forEach(container => container.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById(tabName).classList.add('active');
+            
+            if (tabName === 'supporting') {
+                filterDocuments();
+            }
+        }
+
+        function showSubTab(tabName) {
+            currentSubTab = tabName;
+            document.querySelectorAll('.sub-tab').forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+            filterDocuments();
+        }
+
+        // Filter Functions
+        function filterDocuments() {
+            const search = document.getElementById('searchInput').value.toLowerCase();
+            const structure = document.getElementById('structureFilter').value;
+            const floor = document.getElementById('floorFilter').value;
+            const flat = document.getElementById('flatFilter').value;
+            const date = document.getElementById('dateFilter').value;
+
+            currentDocuments = sampleDocuments.filter(doc => {
+                return (!search || doc.flat.toLowerCase().includes(search)) &&
+                       (!structure || doc.structure === structure) &&
+                       (!floor || doc.floor === floor) &&
+                       (!flat || doc.flat === flat) &&
+                       (!date || doc.uploadDate === date) &&
+                       doc.documentType === currentSubTab;
+            });
+
+            renderDocuments();
+        }
+
+        function clearFilters() {
+            document.getElementById('searchInput').value = '';
+            document.getElementById('structureFilter').value = '';
+            document.getElementById('floorFilter').value = '';
+            document.getElementById('flatFilter').value = '';
+            document.getElementById('dateFilter').value = '';
+            filterDocuments();
+        }
+
+        function renderDocuments() {
+            const grid = document.getElementById('documentsGrid');
+            
+            if (currentDocuments.length === 0) {
+                grid.innerHTML = '<div class="no-documents">📄 No documents found matching your filters</div>';
+                return;
+            }
+
+            grid.innerHTML = currentDocuments.map(doc => `
+                <div class="document-card" data-id="${doc.id}">
+                    <div class="flat-info">
+                        <div class="flat-number">Flat ${doc.flat}</div>
+                        <div class="structure-info">
+                            ${doc.structure} | ${doc.floor} Floor | 
+                            ${doc.uploadDate}
+                        </div>
+                    </div>
+                    <h4>${currentSubTab} Document</h4>
+                    <div class="file-actions">
+                        <button class="upload-btn" onclick="uploadFile('${doc.id}')">
+                            📤 Upload ${currentSubTab}
+                        </button>
+                        ${doc.hasFile ? 
+                            `<button class="download-btn" onclick="downloadFile('${doc.id}')">
+                                📥 Download ${currentSubTab}
+                            </button>` : 
+                            `<div style="flex:1; text-align:center; color:#6c757d; padding:10px;">
+                                No file uploaded
+                            </div>`
+                        }
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // File Operations
+        function uploadFile(docId) {
+            alert(`📤 Uploading ${currentSubTab} for Flat ${docId}...\n\n(Upload functionality will be implemented with backend)`);
+        }
+
+        function downloadFile(docId) {
+            alert(`📥 Downloading ${currentSubTab} for Flat ${docId}...\n\n(Download functionality will be implemented with backend)`);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            renderDocuments();
+            
+            // Dynamic flat filter population
+            const flatFilter = document.getElementById('flatFilter');
+            const uniqueFlats = [...new Set(sampleDocuments.map(d => d.flat))];
+            uniqueFlats.forEach(flat => {
+                const option = document.createElement('option');
+                option.value = flat;
+                option.textContent = flat;
+                flatFilter.appendChild(option);
+            });
+        });
     </script>
 </body>
 </html>
